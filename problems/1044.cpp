@@ -12,7 +12,21 @@ int dfs(int i, int j) {
     f[i][j] += dfs(i - 1, j + 1);
     return f[i][j];
 }
-void work() { printf("%d\n", dfs(n, 0)); }
+int mydp() {
+    int dp[20][20] = {0};
+    for (int j = 0; j < 20; j++) dp[0][j] = 1;
+    for (int i = 1; i < 20; i++) {
+        dp[i][0] = dp[i - 1][1];
+        for (int j = 1; j < 20; j++) {
+            dp[i][j] = dp[i][j - 1] + dp[i - 1][j + 1];
+        }
+    }
+    return dp[n][0];
+}
+void work() {
+    // printf("%d\n", dfs(n, 0));
+    printf("%d\n", mydp());
+}
 int main() {
     init();
     work();
