@@ -31,13 +31,18 @@ string dpSol() {
     for (int i = 3; i <= n; i++) dp[i] = HighPreSum(dp[i - 1], dp[i - 2]);
     return dp[n];
 }
-int dfs(int x) {
-    if (x <= 2) return x;
-    return dfs(x - 1) + dfs(x - 2);
+string dfsRes[5010] = {""};
+
+string dfs(int x) {
+    if (x <= 0) return "0";
+    if (dfsRes[x] != "") return dfsRes[x];
+    dfsRes[x] = HighPreSum(dfs(x - 1), dfs(x - 2));
+    return dfsRes[x];
 }
 void work() {
-    printf("%s\n", dpSol().c_str());
-    // printf("%d\n", dfs(n));
+    dfsRes[0] = "0", dfsRes[1] = "1", dfsRes[2] = "2";
+    // printf("%s\n", dpSol().c_str());
+    printf("%s\n", dfs(n).c_str());
 }
 int main() {
     cin >> n;
